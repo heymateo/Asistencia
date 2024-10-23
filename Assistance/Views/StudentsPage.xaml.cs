@@ -1,4 +1,5 @@
 using Assistance.Models;
+using Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;

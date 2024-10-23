@@ -1,18 +1,12 @@
-using Assistance.Models;
 using Assistance.Services;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
+using Models;
 using System;
-using System.Configuration;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using Windows.Storage;
 using Windows.Storage.Pickers;
-using WinRT.Interop;
 
 namespace Assistance.Views
 {

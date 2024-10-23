@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 #nullable enable
 
-namespace Assistance.Models
+namespace Models
 {
     public class Estudiante
     {

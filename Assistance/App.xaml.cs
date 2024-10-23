@@ -53,9 +53,9 @@ namespace Assistance
 
             // Register your DbContext and other services
             services.AddDbContext<AssistanceDbContext>();
-
             services.AddScoped<CentroEducativoService>();
             services.AddScoped<AdminSessionService>();
+
 
             // Build the service provider and set the Services property
             Services = services.BuildServiceProvider();

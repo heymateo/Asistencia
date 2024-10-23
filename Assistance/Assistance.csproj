@@ -3,7 +3,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
-    <RootNamespace>Assistance2</RootNamespace>
+    <RootNamespace>Assistance</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x64</Platforms> <!-- Solo x64 -->
     <PlatformTarget>x64</PlatformTarget> <!-- Solo x64 -->
@@ -31,6 +31,7 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1" />
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240802000" />
+		<PackageReference Include="sib_api_v3_sdk" Version="4.0.2" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
 		<Manifest Include="$(ApplicationManifest)" />
 	</ItemGroup>

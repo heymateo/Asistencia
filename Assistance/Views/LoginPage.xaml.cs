@@ -1,18 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Microsoft.UI.Xaml;
+using System.Linq;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using Assistance.Views;
 using Assistance.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Assistance.Models;
@@ -22,7 +11,7 @@ using System.Text;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace Assistance
+namespace Assistance.Views
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -31,19 +20,23 @@ namespace Assistance
     {
         private readonly AssistanceDbContext _context;
         private readonly AdminSessionService _adminSessionService;
-        
+
         public LoginPage()
         {
             this.InitializeComponent();
 
-            // Inyectar el servicio de sesion
+            _context = ((App)Application.Current).Services.GetRequiredService<AssistanceDbContext>();
+
             _adminSessionService = ((App)Application.Current).Services.GetRequiredService<AdminSessionService>();
 
-            // Inyectar el contexto de bd
-            _context = ((App)Application.Current).Services.GetRequiredService<AssistanceDbContext>();
         }
 
-        // Lógica básica para iniciar sesión
+        private void RestoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            var restorePasswordWindow = new RestorePasswordWindow();
+            restorePasswordWindow.Activate();
+        }
+
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string username = UsernameTextBox.Text;
@@ -52,15 +45,12 @@ namespace Assistance
             // Validar credenciales (esta lógica puede conectarse a una base de datos o API)
             if (ValidateCredentials(username, password))
             {
-                // Iniciar sesion usando el servicio
                 _adminSessionService.Login(username);
 
-                // Si el login es exitoso, navega a la página principal
                 Frame.Navigate(typeof(MainPage));
             }
             else
             {
-                // Si el login falla, muestra un mensaje de error
                 ContentDialog dialog = new ContentDialog
                 {
                     Title = "Error de Inicio de Sesión",
@@ -72,7 +62,6 @@ namespace Assistance
             }
         }
 
-        // Método para validar credenciales (puedes agregar lógica para verificar desde una base de datos)
         private bool ValidateCredentials(string username, string password)
         {
             var admin = _context.Admin.SingleOrDefault(a => a.User == username);

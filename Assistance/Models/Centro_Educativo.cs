@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assistance.Models
+namespace Models
 {
     #nullable enable
     public class Centro_Educativo
