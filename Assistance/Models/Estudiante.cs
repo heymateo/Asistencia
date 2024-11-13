@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-#nullable enable
-
-namespace Models
+namespace Assistance.Models
 {
+#nullable enable
     public class Estudiante
     {
         [Key]
         public int Id_Estudiante { get; set; }
-        public string Identificacion { get; set; }
-        public string Nombre { get; set; }
-        public string Nivel { get; set; }
-        public string Seccion { get; set; }
-        public string Grupo { get; set; }
+        [Required(ErrorMessage = "Identificación")]
+        public string Identificacion { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Nombre")]
+        public string Nombre { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Nivel")]
+        public string Nivel { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Sección")]
+        public string Seccion { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Grupo")]
+        public string Grupo { get; set; } = string.Empty;
         public string? Especialidad { get; set; }
         public string? Encargado_Legal { get; set; }
         public string? Telefono_Encargado { get; set; }
-        
+
     }
 }

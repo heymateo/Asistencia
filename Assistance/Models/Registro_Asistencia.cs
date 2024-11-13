@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assistance.Models
 {
@@ -11,9 +7,13 @@ namespace Assistance.Models
     {
         [Key]
         public int Id_Registro { get; set; }
+        [Required]
         public int Id_Estudiante { get; set; }
+        [Required(ErrorMessage = "Fecha")]
         public DateOnly Fecha { get; set; }
+        [Required(ErrorMessage = "Hora")]
         public TimeOnly Hora_Entrada { get; set; }
+        [Required]
         public bool Asistio { get; set; }
     }
 }

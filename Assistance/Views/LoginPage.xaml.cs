@@ -37,12 +37,12 @@ namespace Assistance.Views
             restorePasswordWindow.Activate();
         }
 
+        // No está funcionando como se espera, salta al else aún estando el username y password correctos
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string username = UsernameTextBox.Text;
             string password = PasswordBox.Password;
 
-            // Validar credenciales (esta lógica puede conectarse a una base de datos o API)
             if (ValidateCredentials(username, password))
             {
                 _adminSessionService.Login(username);
@@ -71,27 +71,33 @@ namespace Assistance.Views
                 return false; 
             }    
 
-            return VerifyPassword(password, admin.Password);
+            return VerifyPasswordWithSalt(password, admin.Password, admin.Salt);
         }
 
-        public string HashPassword(string password)
+        private bool VerifyPasswordWithSalt(string password, string storedHash, string storedSalt)
         {
-            using (SHA256 sha256Hash = SHA256.Create())
+            byte[] saltBytes = Convert.FromBase64String(storedSalt);
+            using (var deriveBytes = new Rfc2898DeriveBytes(password, saltBytes, 10000, HashAlgorithmName.SHA256))
             {
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
-                StringBuilder builder = new StringBuilder();
-                foreach (byte b in bytes)
-                {
-                    builder.Append(b.ToString("x2"));
-                }
-                return builder.ToString();
+                byte[] hashBytes = deriveBytes.GetBytes(32);
+                string hash = Convert.ToBase64String(hashBytes);
+                return hash == storedHash;
             }
         }
-
-        private bool VerifyPassword(string password, string storedHash)
+        public (string Hash, string Salt) HashPasswordWithSalt(string password)
         {
-            string hashOfInput = HashPassword(password);
-            return hashOfInput == storedHash;
+            // Generar una sal aleatoria
+            byte[] saltBytes = new byte[16];
+            RandomNumberGenerator.Fill(saltBytes);  // Generar bytes de sal de manera segura
+            string salt = Convert.ToBase64String(saltBytes);
+
+            // Generar el hash con PBKDF2
+            using (var deriveBytes = new Rfc2898DeriveBytes(password, saltBytes, 10000, HashAlgorithmName.SHA256))
+            {
+                byte[] hashBytes = deriveBytes.GetBytes(32); // Genera un hash de 256 bits (32 bytes)
+                string hash = Convert.ToBase64String(hashBytes);
+                return (hash, salt); // Devolver el hash y la sal generados
+            }
         }
     }
 }

@@ -42,10 +42,19 @@
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.protocol" Executable="Assistance.exe" EntryPoint="C:\Users\mateo\Desktop\Assistance\Assistance">
+          <uap:Protocol Name="assistanceapp" DesiredView="useMinimum">
+            <uap:Logo>Assets\ctp.jpg</uap:Logo>
+            <uap:DisplayName>Asistencia Protocol</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+      </Extensions>
     </Application>
   </Applications>
 
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
   </Capabilities>
+
 </Package>

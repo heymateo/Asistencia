@@ -1,3 +1,4 @@
+using Assistance.Views;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -20,6 +21,15 @@ namespace Assistance
             SetTitleBar(AppTitleBar);      // set user ui element as titlebar
 
         }
+
+        public void NavigateToPasswordResetPage(string token)
+        {
+            // Asumimos que tienes una página llamada RestorePasswordPage
+            var frame = new Frame();
+            frame.Navigate(typeof(RestorePasswordPage), token);
+            this.Content = frame;
+        }
+
 
         public static explicit operator MainWindow(UIElement v)
         {

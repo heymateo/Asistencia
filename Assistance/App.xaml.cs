@@ -1,77 +1,94 @@
 ﻿using Assistance.Models;
 using Assistance.Services;
 using Assistance.Views;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using Microsoft.UI.Xaml.Shapes;
+using Microsoft.Windows.AppLifecycle;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using Microsoft.UI.Dispatching;
+using System.Threading.Tasks;
 
 namespace Assistance
 {
-    /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
-    /// </summary>
     public partial class App : Application
     {
-        /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
-        /// </summary>
-        /// 
-
+        private static DispatcherQueue _dispatcherQueue;
         public static MainWindow MainWindow = new();
+        public static RestorePasswordWindow RestorePasswordWindow = new RestorePasswordWindow();
 
         public IServiceProvider Services { get; private set; }
+
         public App()
         {
             this.InitializeComponent();
             ConfigureServices();
+            _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
         }
 
         private void ConfigureServices()
         {
-            // Set up the service collection and register services
             var services = new ServiceCollection();
-
-            // Register your DbContext and other services
             services.AddDbContext<AssistanceDbContext>();
             services.AddScoped<CentroEducativoService>();
             services.AddScoped<AdminSessionService>();
-
-
-            // Build the service provider and set the Services property
             Services = services.BuildServiceProvider();
         }
-        /// <summary>
-        /// Invoked when the application is launched.
-        /// </summary>
-        /// <param name="args">Details about the launch request and process.</param>
-        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs e)
-        {
-            var mainWindow = new MainWindow();
-            var frame = new Frame();
-            frame.Navigate(typeof(LoginPage)); // Navega a la página de Login o la página inicial deseada
-            mainWindow.Content = frame;
 
-            mainWindow.Activate();
+        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+        {
+            if (MainWindow == null)
+            {
+                MainWindow = new MainWindow();
+            }
+
+            var frame = new Frame();
+            frame.Navigate(typeof(LoginPage));
+            MainWindow.Content = frame;
+            MainWindow.Activate();
+
+            // Verificar si la aplicación se activa mediante un protocolo
+            var appInstance = AppInstance.GetCurrent();
+            var activationArgs = appInstance.GetActivatedEventArgs();
+
+            if (activationArgs.Kind == ExtendedActivationKind.Protocol)
+            {
+                var protocolArgs = (ProtocolActivatedEventArgs)activationArgs.Data;
+                HandleProtocolActivation(protocolArgs.Uri);
+            }
+
         }
+        private static void HandleProtocolActivation(Uri uri)
+        {
+            _ = Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+            {
+                await Task.Yield();
+
+                if (uri.ToString().StartsWith("assistanceapp://resetpassword"))
+                {
+                    // Extraer el token de la URL
+                    var queryParams = new Uri(uri.ToString()).Query;
+                    var token = System.Web.HttpUtility.ParseQueryString(queryParams).Get("token");
+
+                    var frame = RestorePasswordWindow.Content as Frame;
+                    if (frame == null)
+                    {
+                        frame = new Frame();
+                        RestorePasswordWindow.Content = frame;
+                    }
+
+                    _dispatcherQueue.TryEnqueue(() =>
+                    {
+                        frame.Navigate(typeof(RestorePasswordWindow), token);
+                        RestorePasswordWindow.Activate();
+                    });
+                    await Task.CompletedTask;
+
+                }
+            });
+
+        }
+
     }
 }
