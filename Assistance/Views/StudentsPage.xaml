@@ -8,9 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-
     <Grid Padding="40">
-        <!-- Title -->
         <TextBlock Grid.Row="0" 
                    Grid.ColumnSpan="2" 
                     Text="Listas de Estudiantes" 
@@ -19,7 +17,6 @@
                     HorizontalAlignment="Left"
                     Margin="0,0,0,20"/>
 
-        <!-- ComboBox for Section Filter -->
         <ComboBox x:Name="SectionComboBox" 
         Width="200"
         HorizontalAlignment="Left"
@@ -27,21 +24,18 @@
         SelectionChanged="SectionComboBox_SelectionChanged">
         </ComboBox>
 
-        <!-- ListView for displaying students -->
         <ListView x:Name="StudentsListView"
-Margin="20,70,20,20"
-Visibility="{Binding IsListViewVisible}"
-ItemsSource="{x:Bind Estudiantes, Mode=OneWay}">
+                    Margin="20,70,20,20"
+                    Visibility="{Binding IsListViewVisible}"
+                    ItemsSource="{x:Bind Estudiantes, Mode=OneWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="10">
-                        <!-- Define Column Definitions -->
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <!-- Define Row Definitions -->
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -53,46 +47,37 @@ ItemsSource="{x:Bind Estudiantes, Mode=OneWay}">
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <!-- ID Row -->
                         <TextBlock Text="Identificación:" FontWeight="Bold" Grid.Column="0" Grid.Row="0"/>
-                        <TextBlock Text="{Binding Identificacion}" Grid.Column="1" Grid.Row="0" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding Identificacion}" Grid.Column="1" Grid.Row="0" Margin="10,0,0,5"/>
 
-                        <!-- Name Row -->
                         <TextBlock Text="Nombre:" FontWeight="Bold" Grid.Column="0" Grid.Row="1"/>
-                        <TextBlock Text="{Binding Nombre}" Grid.Column="1" Grid.Row="1" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding Nombre}" Grid.Column="1" Grid.Row="1" Margin="10,0,0,5"/>
 
-                        <!-- Level Row -->
                         <TextBlock Text="Nivel:" FontWeight="Bold" Grid.Column="0" Grid.Row="2"/>
-                        <TextBlock Text="{Binding Nivel}" Grid.Column="1" Grid.Row="2" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding Nivel}" Grid.Column="1" Grid.Row="2" Margin="10,0,0,5"/>
 
-                        <!-- Section Row -->
                         <TextBlock Text="Sección:" FontWeight="Bold" Grid.Column="0" Grid.Row="3"/>
-                        <TextBlock Text="{Binding Seccion}" Grid.Column="1" Grid.Row="3" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding Seccion}" Grid.Column="1" Grid.Row="3" Margin="10,0,0,5"/>
 
-                        <!-- Group Row -->
                         <TextBlock Text="Grupo:" FontWeight="Bold" Grid.Column="0" Grid.Row="4"/>
-                        <TextBlock Text="{Binding Grupo}" Grid.Column="1" Grid.Row="4" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding Grupo}" Grid.Column="1" Grid.Row="4" Margin="10,0,0,5"/>
 
-                        <!-- Specialty Row -->
                         <TextBlock Text="Especialidad:" FontWeight="Bold" Grid.Column="0" Grid.Row="6"/>
-                        <TextBlock Text="{Binding Especialidad}" Grid.Column="1" Grid.Row="6" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding Especialidad}" Grid.Column="1" Grid.Row="6" Margin="10,0,0,5"/>
 
-                        <!-- Guardian Row -->
                         <TextBlock Text="Encargado Legal:" FontWeight="Bold" Grid.Column="0" Grid.Row="5"/>
-                        <TextBlock Text="{Binding Encargado_Legal}" Grid.Column="1" Grid.Row="5" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding Encargado_Legal}" Grid.Column="1" Grid.Row="5" Margin="10,0,0,5"/>
 
-                        <!-- Phone Row -->
                         <TextBlock Text="Teléfono Encargado:" FontWeight="Bold" Grid.Column="0" Grid.Row="7"/>
-                        <TextBlock Text="{Binding Telefono_Encargado}" Grid.Column="1" Grid.Row="7" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding Telefono_Encargado}" Grid.Column="1" Grid.Row="7" Margin="10,0,0,5"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
-        <!-- Pagination Buttons -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20">
-            <Button x:Name="NextPageButton" Content="Anterior" Click="NextPage_Click" Margin="10" />
-            <Button x:Name="PreviousPageButton"  Content="Siguiente" Click="PreviousPage_Click" Margin="10" />
+            <Button x:Name="PreviousPageButton"  Content="Anterior" Click="PreviousPage_Click" Margin="10" />
+            <Button x:Name="NextPageButton" Content="Siguiente" Click="NextPage_Click" Margin="10" />
         </StackPanel>
 
     </Grid>

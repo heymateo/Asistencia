@@ -31,6 +31,7 @@ namespace Assistance
         {
             var services = new ServiceCollection();
             services.AddDbContext<AssistanceDbContext>();
+            services.AddSingleton<AdminSessionService>();
             services.AddScoped<CentroEducativoService>();
             services.AddScoped<AdminSessionService>();
             Services = services.BuildServiceProvider();

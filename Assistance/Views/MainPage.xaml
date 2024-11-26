@@ -22,13 +22,14 @@
                     FontSize="13" 
                  Foreground="Black" />
         </Border>
-        
+
         <winui:NavigationView x:Name="NavView" 
                               PaneDisplayMode="Left" 
                               IsBackButtonVisible="Collapsed"
                               SelectionChanged="NavigationView_SelectionChanged">
             <winui:NavigationView.MenuItems>
                 <winui:NavigationViewItem Content="Inicio" Icon="Home" Tag="inicio" />
+                <winui:NavigationViewItem Content="Administradores" Icon="Contact" Tag="administradores"/>
                 <winui:NavigationViewItem Content="Estudiantes" Icon="Contact" Tag="estudiantes"/>
                 <winui:NavigationViewItem Content="Configuración" Icon="Setting" Tag="configuracion"/>
             </winui:NavigationView.MenuItems>
@@ -37,10 +38,5 @@
                 <Frame x:Name="ContentFrame" />
             </winui:NavigationView.Content>
         </winui:NavigationView>
-
-        <!--<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock x:Name="AdminNameTextBlock" FontSize="24"/>
-            <Button Content="Cerrar Sesión" Click="LogoutButton_Click" Margin="0,20,0,0"/>
-        </StackPanel>-->
     </Grid>
 </Page>
