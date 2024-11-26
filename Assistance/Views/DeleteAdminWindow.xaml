@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="Assistance.Views.DeleteAdminWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Assistance.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Border x:Name="AppTitleBar" Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Nombre de Usuario:" 
+                       HorizontalAlignment="Left" 
+                       Margin="20,50,0,0" 
+                       Grid.Row="0"/>
+
+                <TextBox x:Name="SearchAdminTextBox" 
+                     HorizontalAlignment="Right" 
+                     Width="190" 
+                     Margin="0,40,115,0" 
+                     Grid.Row="0"/>
+
+                <TextBlock x:Name="SearchResultTextBlock"  
+                       TextWrapping="Wrap" 
+                       TextAlignment="Center"
+                       Margin="0,20,0,20" 
+                       FontSize="14" 
+                       Width="300" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Grid.Row="2" />
+
+                <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" 
+                        Spacing="10" 
+                        Grid.Row="3">
+                    <Button Content="Buscar" 
+                        Width="75" 
+                        Height="40" 
+                        Click="SearchAdminButton_Click" />
+
+                    <Button Content="Eliminar" 
+                        Width="75" 
+                        Height="40" 
+                        Click="DeleteAdminButton_Click" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <StackPanel>
+            <TextBlock x:Name="AppTitle" Text="Eliminar Administrador" Margin="10,8,0,0" FontSize="13" Foreground="Black" />
+        </StackPanel>
+    </Grid>
+    
+</Window>

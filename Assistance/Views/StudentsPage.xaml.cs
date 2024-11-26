@@ -25,10 +25,13 @@ namespace Assistance.Views
         public StudentsPage()
         {
             this.InitializeComponent(); 
-            _context = new AssistanceDbContext(); // Asegúrate de que este contexto esté correctamente configurado
+            _context = new AssistanceDbContext(); 
             Estudiantes = new ObservableCollection<Estudiante>();
         }
 
+        /* 
+            La lista de estudiantes se muestra desde los ultimos a los primeros, entonces hay que presionar el boton de atras para navegar por la lista, lo cual es contra-intuitivo
+         */
         private async Task LoadStudents(int pageNumber = 1)
         {
             // Si hay una sección seleccionada, filtrar por esa sección
@@ -61,7 +64,7 @@ namespace Assistance.Views
             NextPageButton.IsEnabled = pageNumber < totalPages;
         }
 
-
+        
         private async void NextPage_Click(object sender, RoutedEventArgs e)
         {
             if (CurrentPage > 0)

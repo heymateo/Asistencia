@@ -7,6 +7,7 @@
 
         // Propiedad para verificar si el admin inicio sesion
         public bool IsLoggedIn => _isLoggedIn;
+
         // Metodo para iniciar sesion
         public void Login(string adminName)
         {

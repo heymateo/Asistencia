@@ -16,6 +16,15 @@
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 	<ItemGroup>
+	  <Compile Remove="Views\Admin\**" />
+	  <EmbeddedResource Remove="Views\Admin\**" />
+	  <None Remove="Views\Admin\**" />
+	  <Page Remove="Views\Admin\**" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Views\AdminPage.xaml" />
+	  <None Remove="Views\CreateAdminWindow.xaml" />
+	  <None Remove="Views\DeleteAdminWindow.xaml" />
 	  <None Remove="Views\RestorePasswordPage.xaml" />
 	</ItemGroup>
 
@@ -45,6 +54,24 @@
 
 	<ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
 		<ProjectCapability Include="Msix" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="Views\DeleteAdminWindow.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="Views\CreateAdminWindow.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="Views\AdminPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -87,4 +114,8 @@
     <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
     <UseRidGraph>true</UseRidGraph>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <PRIResource Remove="Views\Admin\**" />
+	</ItemGroup>
 </Project>
